@@ -268,6 +268,11 @@ public class AddExpense extends javax.swing.JFrame {
         
         if(val.validateBudget(priceTxtField.getText()) && val.validateDate(dateTxtField.getText())){
             dh.addExpense(expenseTextField.getText(), priceTxtField.getText(), dateTxtField.getText());
+
+            //Update budget - only updated on succesful validation
+            int budget= Integer.parseInt(dh.returnElementFromDB(2))-Integer.parseInt(priceTxtField.getText());
+            dh.updateBudgetInDB(dh.returnElementFromDB(0), dh.returnElementFromDB(1), Integer.toString(budget), dh.returnElementFromDB(3));
+ 
         }else{
             if (!val.validateBudget(priceTxtField.getText())){
                 errorLabel.setText("Enter a number as price!");
@@ -282,9 +287,7 @@ public class AddExpense extends javax.swing.JFrame {
         priceTxtField.setText("");
         dateTxtField.setText("");
         
-        //Update budget
-        int budget= Integer.parseInt(dh.returnElementFromDB(2))-Integer.parseInt(priceTxtField.getText());
-        dh.updateBudgetInDB(dh.returnElementFromDB(0), dh.returnElementFromDB(1), String.valueOf(budget), dh.returnElementFromDB(3));
+        
     }//GEN-LAST:event_addExpenseBTNActionPerformed
 
     /**

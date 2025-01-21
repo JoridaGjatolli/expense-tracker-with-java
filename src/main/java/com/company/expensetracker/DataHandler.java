@@ -123,10 +123,11 @@ public class DataHandler {
             }
         }
         
-        public void updateBudgetInDB(String username, String password, String budget, String currency){      
+        public void updateBudgetInDB(String username, String password, String budget, String currency){   
             try{
                 String[] data = {username, password, budget, currency};
                 FileWriter fw = new FileWriter(userInfoPath);
+                
                 for (int i = 0; i < 4; i++) {
                    fw.write(data[i] + "\n");
                 }   
