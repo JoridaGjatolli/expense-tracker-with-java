@@ -9,16 +9,16 @@ import java.io.IOException;
  * @author User
  */
 public class Account extends javax.swing.JFrame {
-
-    DataHandler dh=new DataHandler();
+    CurrentUser cu=new CurrentUser();
+    DataHandler dh = new DataHandler();
    
     public Account() {
         initComponents();
-        newNameTxtField.setText(dh.returnElementFromDB(0));
-        newPasswordTxtField.setText(dh.returnElementFromDB(1));
-        budgetTxtField.setText(dh.returnElementFromDB(2));
-        currencyComboBox.setSelectedItem(dh.returnElementFromDB(3) );
-        byeLabel.setText("Goodbye, " + dh.returnElementFromDB(0));
+        newNameTxtField.setText(cu.getValue(0));
+        newPasswordTxtField.setText(cu.getValue(1));
+        budgetTxtField.setText(cu.getValue(2));
+        currencyComboBox.setSelectedItem(cu.getValue(3) );
+        byeLabel.setText("Goodbye, " + cu.getValue(0));
         newNameTxtField.setEnabled(false);
         newPasswordTxtField.setEnabled(false);
         budgetTxtField.setEnabled(false);
@@ -44,6 +44,7 @@ public class Account extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         logoutBtn = new javax.swing.JButton();
         byeLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         newNameLabel = new javax.swing.JLabel();
         nametxtBox = new javax.swing.JScrollPane();
@@ -59,9 +60,9 @@ public class Account extends javax.swing.JFrame {
         editModeBTN = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         deleteAccBtn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
         setSize(new java.awt.Dimension(1080, 720));
 
         mainAccountPanel.setBackground(new java.awt.Color(204, 204, 204));
@@ -123,29 +124,42 @@ public class Account extends javax.swing.JFrame {
             }
         });
 
-        byeLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        byeLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         byeLabel.setForeground(new java.awt.Color(0, 0, 102));
+        byeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         byeLabel.setText("Goodbye!");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\jorid\\Downloads\\ExpenseTracker_with_Java-master\\ExpenseTracker_with_Java-master\\src\\main\\java\\com\\company\\expensetracker\\images\\user-fill-blue.jpg")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logoutBtn)
-                    .addComponent(byeLabel))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(byeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel2)
+                        .addGap(0, 59, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(logoutBtn)
+                .addGap(93, 93, 93))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(221, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(byeLabel)
-                .addGap(52, 52, 52)
+                .addGap(61, 61, 61)
                 .addComponent(logoutBtn)
-                .addGap(50, 50, 50))
+                .addGap(33, 33, 33))
         );
 
         newNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -250,7 +264,7 @@ public class Account extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(currencyComboBox, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editModeBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -267,21 +281,29 @@ public class Account extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\jorid\\Downloads\\ExpenseTracker_with_Java-master\\ExpenseTracker_with_Java-master\\src\\main\\java\\com\\company\\expensetracker\\images\\remove.png")); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(108, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(60, 60, 60))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(98, 98, 98)
                 .addComponent(deleteAccBtn)
-                .addGap(100, 100, 100))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(298, Short.MAX_VALUE)
+                .addGap(79, 79, 79)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(deleteAccBtn)
-                .addGap(47, 47, 47))
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout mainAccountPanelLayout = new javax.swing.GroupLayout(mainAccountPanel);
@@ -291,31 +313,27 @@ public class Account extends javax.swing.JFrame {
             .addGroup(mainAccountPanelLayout.createSequentialGroup()
                 .addGap(412, 412, 412)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(449, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainAccountPanelLayout.createSequentialGroup()
-                .addGroup(mainAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(mainAccountPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tableNavBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addNavBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(homeNavBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(statsNavBtn))
-                    .addGroup(mainAccountPanelLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainAccountPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tableNavBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(mainAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainAccountPanelLayout.createSequentialGroup()
-                        .addComponent(logoutNavBtn)
-                        .addGap(243, 243, 243))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainAccountPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                .addComponent(addNavBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(homeNavBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(statsNavBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(logoutNavBtn)
+                .addGap(310, 310, 310))
         );
         mainAccountPanelLayout.setVerticalGroup(
             mainAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,16 +343,16 @@ public class Account extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addGroup(mainAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(mainAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(homeNavBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(statsNavBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logoutNavBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addNavBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tableNavBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -386,18 +404,23 @@ public class Account extends javax.swing.JFrame {
 
     private void deleteAccBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccBtnActionPerformed
         // TODO add your handling code here:
-        try (FileWriter fileWriter = new FileWriter("UserInfo.txt", false)) {
-            fileWriter.write("");  
+        try {
+            FileWriter userInfoFW = new FileWriter(dh.userInfoPath, false);
+            userInfoFW.write("");  
+            FileWriter expenseFW = new FileWriter(dh.expensePath, false);
+            expenseFW.write("");  
             this.dispose();
             new SignUp().setVisible(true);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "ERROE DELETING YOUR ACCOUNT!");
         }
+        
+        
     }//GEN-LAST:event_deleteAccBtnActionPerformed
 
     private void submitBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBTNActionPerformed
         // TODO add your handling code here:
-        dh.writeInDB(newNameTxtField.getText(), newPasswordTxtField.getText(), budgetTxtField.getText(), (String)currencyComboBox.getSelectedItem());
+        dh.updateInDB(newNameTxtField.getText(), newPasswordTxtField.getText(), budgetTxtField.getText(), (String)currencyComboBox.getSelectedItem());
     }//GEN-LAST:event_submitBTNActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -470,6 +493,8 @@ public class Account extends javax.swing.JFrame {
     private javax.swing.JToggleButton editModeBTN;
     private javax.swing.JButton homeNavBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

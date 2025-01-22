@@ -4,7 +4,6 @@
  */
 package com.company.expensetracker;
 import javax.swing.table.DefaultTableModel;
-import java.util.ArrayList;
 /**
  *
  * @author User
@@ -12,27 +11,34 @@ import java.util.ArrayList;
 public class HomeFrame extends javax.swing.JFrame {
     DataHandler handleData = new DataHandler();
     DefaultTableModel tableModel = new DefaultTableModel();
-    
+    CurrentUser cu = new CurrentUser();
 
     /**
      * Creates new form HomeFrame
      */
     public HomeFrame() {
         initComponents();
-        greetingLbl.setText("Greetings, " + handleData.returnElementFromDB(0));
+        StringBuilder greeting = new StringBuilder("Greetings, ");
+        greeting.append(cu.getValue(0));
+        greetingLbl.setText(greeting.toString());
+        
         tableModel.addColumn("Name");
         tableModel.addColumn("Amount");
         tableModel.addColumn("Date");
         
         String[] allDataArray = handleData.readExpenses();
-        int length = allDataArray.length < 3 ? allDataArray.length : 3;
-        for (int i = 0; i < length; i++){
+        
+        int lastItem = allDataArray.length - 1; //index of last item
+        int length = lastItem > 7  ? lastItem - 5 :  0;  
+        System.out.println(length);
+        for (int i = lastItem; i >= length; i--){
             String[] temp = allDataArray[i].split(",");
             tableModel.addRow(temp);
         }
+        
         numberOfExpenses.setText(Integer.toString(allDataArray.length));
-        budgetNumber.setText(handleData.returnElementFromDB(2));
-        budgetTitleLabel.setText(handleData.returnElementFromDB(3));
+        budgetNumber.setText(cu.getValue(2));
+        budgetTitleLabel.setText(cu.getValue(3));
     }
 
     /**
@@ -70,7 +76,6 @@ public class HomeFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Expense Tracker - Home");
-        setResizable(false);
         setSize(new java.awt.Dimension(1080, 720));
 
         mainHomePanel.setBackground(new java.awt.Color(204, 204, 204));
@@ -176,7 +181,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
         topRightPanel.setBackground(new java.awt.Color(0, 0, 102));
 
-        userIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Desktop\\ExpenseTracker_with_Java\\src\\main\\java\\com\\company\\expensetracker\\images\\user.png")); // NOI18N
+        userIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\jorid\\Downloads\\ExpenseTracker_with_Java-master\\ExpenseTracker_with_Java-master\\src\\main\\java\\com\\company\\expensetracker\\images\\user.png")); // NOI18N
 
         greetingLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         greetingLbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,7 +215,7 @@ public class HomeFrame extends javax.swing.JFrame {
         bottomLeftContainer.setBackground(new java.awt.Color(0, 0, 102));
 
         addExpenseBigBtn.setBackground(new java.awt.Color(0, 0, 102));
-        addExpenseBigBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Desktop\\ExpenseTracker_with_Java\\src\\main\\java\\com\\company\\expensetracker\\images\\plus.png")); // NOI18N
+        addExpenseBigBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\jorid\\Downloads\\ExpenseTracker_with_Java-master\\ExpenseTracker_with_Java-master\\src\\main\\java\\com\\company\\expensetracker\\images\\plus.png")); // NOI18N
         addExpenseBigBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addExpenseBigBtnActionPerformed(evt);
@@ -248,7 +253,7 @@ public class HomeFrame extends javax.swing.JFrame {
         bottomRightPanel.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
         jLabel3.setText("RECENT EXPENSES");
 
         jTable1.setModel(tableModel);

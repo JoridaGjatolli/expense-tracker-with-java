@@ -3,13 +3,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.company.expensetracker;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 /**
  *
  * @author User
  */
-public class Table extends javax.swing.JFrame {
+public class Table extends javax.swing.JFrame implements Searchable {
+    @Override
+    public String[] searchExpenses(String searchTerm) {
+        try(BufferedReader br = new BufferedReader(new FileReader(handleData.expensePath))){
+                ArrayList<String> allData = new ArrayList<String>();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if(line.toLowerCase().contains(searchTerm.toLowerCase())){
+                        allData.add(line);
+                    }
+                }
+                return allData.toArray(new String[0]); // returns entirety of lines in  the format {"name,123,12/12/2023" , "name,321,12/32/32"}
+            }
+                catch(Exception error){
+                    error.printStackTrace();
+
+                    return null;
+                }
+    }
+    
     DataHandler handleData = new DataHandler();
     DefaultTableModel tableModel = new DefaultTableModel();
     DefaultTableModel searchModel = new DefaultTableModel();
@@ -31,7 +52,8 @@ public class Table extends javax.swing.JFrame {
         
         String[] allDataArray = handleData.readExpenses();
         
-        for (int i = 0; i < allDataArray.length; i++) {
+        //prints in reverse order so that the newest addition comes up first
+        for (int i = allDataArray.length -  1; i >= 0 ; i--) {
             String[] temp = allDataArray[i].split(",");
             tableModel.addRow(temp);
         }
@@ -66,7 +88,6 @@ public class Table extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Expense Tracker - Table");
-        setResizable(false);
         setSize(new java.awt.Dimension(1080, 720));
 
         mainTablePanel.setBackground(new java.awt.Color(204, 204, 204));
@@ -232,11 +253,12 @@ public class Table extends javax.swing.JFrame {
                 searchModel.removeRow(0);
             }
 
-            String[] allDataArray = handleData.readExpenses(searchTerm);
+            String[] allDataArray = searchExpenses(searchTerm);
 
             for (int i = 0; i < allDataArray.length; i++) {
                 String[] temp = allDataArray[i].split(",");
                 searchModel.addRow(temp);
+                System.out.println(temp);
             }
             table.setModel(searchModel);
             searchButton.setText("CLEAR");
@@ -296,4 +318,6 @@ public class Table extends javax.swing.JFrame {
     private javax.swing.JTable table;
     private javax.swing.JButton tableNavBtn;
     // End of variables declaration//GEN-END:variables
+
+
 }

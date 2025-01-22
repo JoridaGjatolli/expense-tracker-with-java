@@ -3,7 +3,7 @@
  */
 
 package com.company.expensetracker;
-
+import java.io.IOException;
 /**
  *
  * @author User
@@ -11,12 +11,8 @@ package com.company.expensetracker;
 public class ExpenseTracker {
 
     public static void main(String[] args) {
-//      SignUp s1 = new SignUp();
-//      s1.setVisible(true);
-//      Table t1 = new Table();
-//      t1.setVisible(true);
-        AddExpense add=new AddExpense();
-        add.setVisible(true);
-        
+       SignUp s1 = new SignUp();
+       s1.setVisible(true);
+    
     }
 }

@@ -11,12 +11,12 @@ public class SignUp extends javax.swing.JFrame {
             nameInput.setText("");
             passwordInput.setText("");
             budgetInput.setText("");
-        }
+    }
         
         //generated SignUp Constructor
     public SignUp() {
         initComponents();
-        if(!handleData.isFileEmpty(handleData.userInfoPath)){
+        if(!handleData.isFileEmpty()){
             JOptionPane.showMessageDialog(null,"There is an account already created, please log in instead! ");
         }
     }
@@ -45,7 +45,6 @@ public class SignUp extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(0, 0, 1080, 720));
         setMinimumSize(new java.awt.Dimension(1080, 720));
         setName("SignUpFrame"); // NOI18N
-        setResizable(false);
         setSize(new java.awt.Dimension(1080, 720));
 
         mainPanel.setBackground(new java.awt.Color(241, 241, 241));
@@ -77,6 +76,11 @@ public class SignUp extends javax.swing.JFrame {
         budgetLabel.setText("BUDGET (whole number):");
 
         userLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\jorid\\Downloads\\ExpenseTracker_with_Java-master\\ExpenseTracker_with_Java-master\\src\\main\\java\\com\\company\\expensetracker\\images\\user.png")); // NOI18N
+
+        errorLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        errorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout mainContainerLayout = new javax.swing.GroupLayout(mainContainer);
         mainContainer.setLayout(mainContainerLayout);
@@ -103,7 +107,8 @@ public class SignUp extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(unitSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(nameInput, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(passwordInput, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                        .addComponent(passwordInput, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGap(0, 37, Short.MAX_VALUE))
                     .addGroup(mainContainerLayout.createSequentialGroup()
                         .addContainerGap()
@@ -135,12 +140,10 @@ public class SignUp extends javax.swing.JFrame {
                     .addComponent(unitSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(signUpBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-
-        errorLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        errorLabel.setForeground(new java.awt.Color(255, 0, 0));
-        errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         sendToLogInBTN.setBackground(new java.awt.Color(241, 241, 241));
         sendToLogInBTN.setForeground(new java.awt.Color(0, 0, 102));
@@ -157,9 +160,7 @@ public class SignUp extends javax.swing.JFrame {
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(sendToLogInBTN)
                 .addGap(396, 396, 396))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
@@ -172,13 +173,8 @@ public class SignUp extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap(90, Short.MAX_VALUE)
                 .addComponent(mainContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(errorLabel))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(sendToLogInBTN)))
+                .addGap(18, 18, 18)
+                .addComponent(sendToLogInBTN)
                 .addGap(14, 14, 14))
         );
 
@@ -208,7 +204,7 @@ public class SignUp extends javax.swing.JFrame {
            //writes in db the sign up data
            handleData.writeInDB(userName, userPassword, userBudget, currencyType);
            //on successful sign up this frame is disposed, and we go to the home
-            this.dispose();
+           this.dispose();
            new HomeFrame().setVisible(true);
   
        }
